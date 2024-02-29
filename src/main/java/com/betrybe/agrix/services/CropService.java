@@ -4,6 +4,7 @@ import com.betrybe.agrix.controllers.exception.CropNotFoundException;
 import com.betrybe.agrix.models.entities.Crop;
 import com.betrybe.agrix.models.entities.Farm;
 import com.betrybe.agrix.models.repositories.CropRepository;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,10 @@ public class CropService {
   public List<Crop> getAllCropsByFarmId(Long farmId) {
     Farm farm = farmService.getFarmById(farmId);
     return farm.getCrops();
+  }
+
+  public List<Crop> getCropsByHarvestDate(LocalDate start, LocalDate end) {
+    return cropRepository.findByHarvestDateBetween(start, end);
   }
 
   /**
