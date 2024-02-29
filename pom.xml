@@ -50,7 +50,6 @@
       <scope>runtime</scope>
     </dependency>
 
-
     <!-- Spring Boot -->
 
     <dependency>
@@ -162,9 +161,11 @@
       </plugin>
 
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
         <version>3.4.5</version>
       </plugin>
+
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
