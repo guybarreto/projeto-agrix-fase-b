@@ -3,6 +3,7 @@ package com.betrybe.agrix.services;
 import com.betrybe.agrix.controllers.exception.CropNotFoundException;
 import com.betrybe.agrix.models.entities.Crop;
 import com.betrybe.agrix.models.entities.Farm;
+import com.betrybe.agrix.models.entities.Fertilizer;
 import com.betrybe.agrix.models.repositories.CropRepository;
 import java.time.LocalDate;
 import java.util.List;
@@ -19,6 +20,7 @@ public class CropService {
 
   private final CropRepository cropRepository;
   private final FarmService farmService;
+  private final FertilizerService fertilizerService;
 
   /**
    * Instantiates a new Crop service.
@@ -27,9 +29,14 @@ public class CropService {
    * @param farmService    the farm service
    */
   @Autowired
-  public CropService(CropRepository cropRepository, FarmService farmService) {
+  public CropService(
+      CropRepository cropRepository,
+      FarmService farmService, FertilizerService fertilizerService
+
+  ) {
     this.cropRepository = cropRepository;
     this.farmService = farmService;
+    this.fertilizerService = fertilizerService;
   }
 
   /**
@@ -78,5 +85,13 @@ public class CropService {
   public Crop getCropById(Long id) {
     Optional<Crop> optionalCrop = cropRepository.findById(id);
     return optionalCrop.orElseThrow(() -> new CropNotFoundException("Plantação não encontrada!"));
+  }
+
+  public void associateFertilizerWithCrop(Long cropId, Long fertilizerId) {
+    Crop crop = getCropById(cropId);
+    Fertilizer fertilizer = fertilizerService.getFertilizerById(fertilizerId);
+
+    crop.getFertilizers().add(fertilizer);
+    cropRepository.save(crop);
   }
 }
