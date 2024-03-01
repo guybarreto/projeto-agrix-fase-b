@@ -1,5 +1,6 @@
 package com.betrybe.agrix.services;
 
+import com.betrybe.agrix.controllers.dto.FertilizerDto;
 import com.betrybe.agrix.controllers.exception.CropNotFoundException;
 import com.betrybe.agrix.models.entities.Crop;
 import com.betrybe.agrix.models.entities.Farm;
@@ -8,6 +9,7 @@ import com.betrybe.agrix.models.repositories.CropRepository;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -93,5 +95,13 @@ public class CropService {
 
     crop.getFertilizers().add(fertilizer);
     cropRepository.save(crop);
+  }
+
+  public List<FertilizerDto> getFertilizersByCropId(Long cropId) {
+    Crop crop = getCropById(cropId);
+
+    return crop.getFertilizers().stream()
+        .map(FertilizerDto::fertilizerToFertilizerDto)
+        .collect(Collectors.toList());
   }
 }
