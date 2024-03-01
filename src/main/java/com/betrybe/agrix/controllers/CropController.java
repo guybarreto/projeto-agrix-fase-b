@@ -30,7 +30,8 @@ public class CropController {
   /**
    * Instantiates a new Crop controller.
    *
-   * @param cropService the crop service
+   * @param cropService       the crop service
+   * @param fertilizerService the fertilizer service
    */
   @Autowired
   public CropController(CropService cropService, FertilizerService fertilizerService) {
@@ -50,6 +51,13 @@ public class CropController {
     return ResponseEntity.status(HttpStatus.OK).body(cropDto);
   }
 
+  /**
+   * Search crops by harvest date response entity.
+   *
+   * @param start the start
+   * @param end   the end
+   * @return the response entity
+   */
   @GetMapping("/search")
   public ResponseEntity<List<CropDto>> searchCropsByHarvestDate(
       @RequestParam LocalDate start,
@@ -80,15 +88,30 @@ public class CropController {
     return ResponseEntity.status(HttpStatus.OK).body(cropDtoList);
   }
 
+  /**
+   * Associate fertilizer with crop response entity.
+   *
+   * @param cropId       the crop id
+   * @param fertilizerId the fertilizer id
+   * @return the response entity
+   */
   @PostMapping("/{cropId}/fertilizers/{fertilizerId}")
   public ResponseEntity<String> associateFertilizerWithCrop(
       @PathVariable Long cropId,
       @PathVariable Long fertilizerId
   ) {
-      cropService.associateFertilizerWithCrop(cropId, fertilizerId);
-      return ResponseEntity.status(HttpStatus.CREATED).body("Fertilizante e plantação associados com sucesso!");
-    }
+    cropService.associateFertilizerWithCrop(cropId, fertilizerId);
+    return ResponseEntity
+        .status(HttpStatus.CREATED)
+        .body("Fertilizante e plantação associados com sucesso!");
+  }
 
+  /**
+   * Gets fertilizers by crop id.
+   *
+   * @param cropId the crop id
+   * @return the fertilizers by crop id
+   */
   @GetMapping("/{cropId}/fertilizers")
   public ResponseEntity<List<FertilizerDto>> getFertilizersByCropId(@PathVariable Long cropId) {
     List<FertilizerDto> fertilizerDtoList = cropService.getFertilizersByCropId(cropId);

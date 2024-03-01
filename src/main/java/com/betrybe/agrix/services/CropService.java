@@ -27,8 +27,9 @@ public class CropService {
   /**
    * Instantiates a new Crop service.
    *
-   * @param cropRepository the crop repository
-   * @param farmService    the farm service
+   * @param cropRepository    the crop repository
+   * @param farmService       the farm service
+   * @param fertilizerService the fertilizer service
    */
   @Autowired
   public CropService(
@@ -65,6 +66,13 @@ public class CropService {
     return farm.getCrops();
   }
 
+  /**
+   * Gets crops by harvest date.
+   *
+   * @param start the start
+   * @param end   the end
+   * @return the crops by harvest date
+   */
   public List<Crop> getCropsByHarvestDate(LocalDate start, LocalDate end) {
     return cropRepository.findByHarvestDateBetween(start, end);
   }
@@ -89,6 +97,12 @@ public class CropService {
     return optionalCrop.orElseThrow(() -> new CropNotFoundException("Plantação não encontrada!"));
   }
 
+  /**
+   * Associate fertilizer with crop.
+   *
+   * @param cropId       the crop id
+   * @param fertilizerId the fertilizer id
+   */
   public void associateFertilizerWithCrop(Long cropId, Long fertilizerId) {
     Crop crop = getCropById(cropId);
     Fertilizer fertilizer = fertilizerService.getFertilizerById(fertilizerId);
@@ -97,6 +111,12 @@ public class CropService {
     cropRepository.save(crop);
   }
 
+  /**
+   * Gets fertilizers by crop id.
+   *
+   * @param cropId the crop id
+   * @return the fertilizers by crop id
+   */
   public List<FertilizerDto> getFertilizersByCropId(Long cropId) {
     Crop crop = getCropById(cropId);
 

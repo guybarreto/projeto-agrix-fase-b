@@ -61,7 +61,14 @@ public class Crop {
    * @param plantedDate the planted date
    * @param harvestDate the harvest date
    */
-  public Crop(Long id, Farm farm, String name, Double plantedArea, LocalDate plantedDate, LocalDate harvestDate) {
+  public Crop(
+      Long id,
+      Farm farm,
+      String name,
+      Double plantedArea,
+      LocalDate plantedDate,
+      LocalDate harvestDate
+  ) {
     this.id = id;
     this.farm = farm;
     this.name = name;
@@ -142,26 +149,56 @@ public class Crop {
     this.farm = farm;
   }
 
+  /**
+   * Gets planted date.
+   *
+   * @return the planted date
+   */
   public LocalDate getPlantedDate() {
     return plantedDate;
   }
 
+  /**
+   * Sets planted date.
+   *
+   * @param plantedDate the planted date
+   */
   public void setPlantedDate(LocalDate plantedDate) {
     this.plantedDate = plantedDate;
   }
 
+  /**
+   * Gets harvest date.
+   *
+   * @return the harvest date
+   */
   public LocalDate getHarvestDate() {
     return harvestDate;
   }
 
+  /**
+   * Sets harvest date.
+   *
+   * @param harvestDate the harvest date
+   */
   public void setHarvestDate(LocalDate harvestDate) {
     this.harvestDate = harvestDate;
   }
 
+  /**
+   * Gets fertilizers.
+   *
+   * @return the fertilizers
+   */
   public List<Fertilizer> getFertilizers() {
     return fertilizers;
   }
 
+  /**
+   * Sets fertilizers.
+   *
+   * @param fertilizers the fertilizers
+   */
   public void setFertilizers(List<Fertilizer> fertilizers) {
     this.fertilizers = fertilizers;
   }

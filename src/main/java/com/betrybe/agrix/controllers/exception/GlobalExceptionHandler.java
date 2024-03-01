@@ -33,8 +33,16 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
   }
 
+  /**
+   * Handle fertilizer not found exception response entity.
+   *
+   * @param exception the exception
+   * @return the response entity
+   */
   @ExceptionHandler(FertilizerNotFoundException.class)
-  public ResponseEntity<String> handleFertilizerNotFoundException(FertilizerNotFoundException exception) {
+  public ResponseEntity<String> handleFertilizerNotFoundException(
+      FertilizerNotFoundException exception
+  ) {
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
   }
 }
